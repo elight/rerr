@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Recommendation Engines with Redis and Ruby</title>
+    <meta charset='utf-8' />
+    <meta content='width=1024, user-scalable=no' name='viewport' />
+    <!-- deck.js's core css -->
+    <link href="deck.js/core/deck.core.css" rel="stylesheet" type="text/css"/>
+    <!-- deck.js extension CSS files -->
+    <link href="deck.js/extensions/codemirror/deck.codemirror.css" rel="stylesheet" type="text/css"/>
+    <link href="deck.js/extensions/goto/deck.goto.css" rel="stylesheet" type="text/css"/>
+    <link href="deck.js/extensions/hash/deck.hash.css" rel="stylesheet" type="text/css"/>
+    <link href="deck.js/extensions/menu/deck.menu.css" rel="stylesheet" type="text/css"/>
+    <link href="deck.js/extensions/navigation/deck.navigation.css" rel="stylesheet" type="text/css"/>
+    <link href="deck.js/extensions/scale/deck.scale.css" rel="stylesheet" type="text/css"/>
+    <link href="deck.js/extensions/status/deck.status.css" rel="stylesheet" type="text/css"/>
+    <!-- all css in the css dir: Keydown CSS, your custom CSS, and themes from deck.js -->
+    <link href="css/keydown.css" rel="stylesheet" type="text/css"/>
+    <link href="css/default.css" rel="stylesheet" type="text/css"/>
+    <link href="css/horizontal-slide.css" rel="stylesheet" type="text/css"/>
+    <link href="css/rerr.css" rel="stylesheet" type="text/css"/>
+    <link href="css/swiss.css" rel="stylesheet" type="text/css"/>
+    <!-- Modernizr (provided for legacy browsers) -->
+    <script src="deck.js/support/modernizr.custom.js" type="text/javascript"></script>
+  </head>
+  <body class='deck-container keydown'>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>Recommendation Engines</h1>
+        
+        <h1>with Redis and Ruby</h1>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='middle slide'>
+  <div class='spacer top'></div>
+  <div class='content'>
+    <h1>Evan Light</h1>
+
+<h2><strong>Code Janitor</strong></h2>
+
+<h2><a href="http://twitter.com/elight">@elight</a></h2>
+
+<h2><a href="mailto:evan.light@tripledogdare.net">evan.light@tripledogdare.net</a></h2>
+  </div>
+  <div class='spacer bottom'></div>
+</section>
+    <section class='full-background middle slide stuff_i_do'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='full-background kyck slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>So a recommendation engine...</h1>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>... based on the user's interests...</h1>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>... and social proof</h1>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='full-background no_idea slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>Exciting!</h1>
+        
+        <h1>So let's begin!</h1>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>The domain</h1>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='full-background slide top-left user-tag'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>Given something like...</h1>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='domain full-background slide top-left'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>... and this...</h1>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='full-background scored-user-posts slide top-right'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>... we want <em>this</em>!</h1>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>Trendingness</h1>
+        
+        <h2>"Objective" ranking</h2>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>Constraints</h1>
+        
+        <h2>Near real-time</h2>
+        
+        <h2>Effective even w/ small data sets</h2>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>Goal</h1>
+        
+        <h2>Calculate scalar User interest</h2>
+        
+        <h2>in Tags</h2>
+        
+        <h2>on a per event basis</h2>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>User event driven</h1>
+        
+        <h2>Liking/Favoriting</h2>
+        
+        <h2>Posting</h2>
+        
+        <h2>Commenting</h2>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h2>Offload processing of events to queue</h2>
+        
+        <h2><strong>ActiveRecord::Observer feed into Resque</strong></h2>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='bottom-left slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>Engine design</h1>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='calculator_workflow full-background slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1><em>Calculator</em></h1>
+        
+        <h2>Pop an event off Resque</h2>
+        
+        <h2>"Magic" happens!</h2>
+        
+        <h2>Outputs Posts scores by User</h2>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>"Magic"</h1>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1><em>Trendingness Calculator</em></h1>
+        
+        <h2><strong>Input</strong>: The event</h2>
+        
+        <h2>(Re)compute Post's trendingness score</h2>
+        
+        <h2><strong>Output</strong>: The trendingness score for the Post</h2>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h2>Trendingness stored as key-value pairs</h2>
+        
+        <h2>Incrementing trendingness score trivially fast</h2>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1><em>User Interest Calculator</em></h1>
+        
+        <h2><strong>Input</strong>: The event</h2>
+        
+        <h2>For originating User:</h2>
+        
+        <h2><strong>Output</strong>: User's updated interests per Tag</h2>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1><em>Post Score Calculator</em></h1>
+        
+        <h2><strong>Input</strong>: The event plus User's interests per Tag</h2>
+        
+        <h2>Locate Posts related to these Tags</h2>
+        
+        <h2>Locate Users interested in these Tags</h2>
+        
+        <h4>O(n<sup>2</sup>) == <em>slow!</em></h4>
+        
+        <h2><strong>Output</strong>: new Post scores per interested User</h2>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='calculator_workflow full-background slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>Let's simplify this...</h1>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='full-background series_of_queues slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>Performance "optimizations"</h1>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+  <div class='spacer top'></div>
+  <div class='content'>
+    <h2>Expected RDBMS to be under heavy load</h2>
+
+<h2><u><em>Prematurely</em></u> optimized to reduce DB queries</h2>
+  </div>
+  <div class='spacer bottom'></div>
+</section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h2>Cache interesting primary keys in Redis Sets</h2>
+        
+        <h2>Reduces need for expensive database queries</h2>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h2>For example</h2>
+        
+        <h3>User's IDs interested in a particular Tag</h3>
+        
+        <h3>Post IDs related to a particular Tag</h3>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h2>Break up <em>Calculator</em></h2>
+        
+        <h2>Each <em>FooCalculator</em> becomes Resque worker</h2>
+        
+        <h2>Allows <em>FooCalculator</em> to scale independently</h2>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>Ideal?</h1>
+        
+        <h2>Not really</h2>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>Ideal enough?</h1>
+        
+        <h2>Customer was happy!</h2>
+        
+        <h2>It's still in production!</h2>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>Woulda coulda shoulda</h1>
+        
+        <h2>Research statistical methods</h2>
+        
+        <h3>Uncertain RE: real-time constraint</h3>
+        
+        <h2>Runtime faster than Ruby</h2>
+        
+        <h2><img src="images/troll.jpg"/></h2>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='middle slide'>
+  <div class='spacer top'></div>
+  <div class='content'>
+    <h1>Evan Light</h1>
+
+<h2><strong>Code Janitor</strong></h2>
+
+<h2><a href="http://twitter.com/elight">@elight</a></h2>
+
+<h2><a href="mailto:evan.light@tripledogdare.net">evan.light@tripledogdare.net</a></h2>
+  </div>
+  <div class='spacer bottom'></div>
+</section>
+    <!-- deck.js navigation extension -->
+    <a class='deck-prev-link' href='#' title='Previous'>&#8592;</a>
+    <a class='deck-next-link' href='#' title='Next'>&#8594;</a>
+    <!-- deck.js hash extension -->
+    <a class='deck-permalink' href='.' title='Permalink to this slide'>#</a>
+    <!-- deck.js status extension -->
+    <p class='deck-status'>
+      <span class='deck-status-current'></span>
+      /
+      <span class='deck-status-total'></span>
+    </p>
+    <!-- jQuery & deck.js -->
+    <script src="deck.js/support/jquery.1.6.4.min.js" type="text/javascript"></script>
+    <script src="deck.js/core/deck.core.js" type="text/javascript"></script>
+    <!-- deck.js extension JS files -->
+    <script src="deck.js/extensions/codemirror/codemirror.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/deck.codemirror.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/clike/clike.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/clojure/clojure.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/coffeescript/coffeescript.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/css/css.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/diff/diff.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/haskell/haskell.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/htmlmixed/htmlmixed.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/javascript/javascript.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/lua/lua.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/php/php.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/plsql/plsql.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/python/python.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/r/r.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/rst/rst.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/ruby/ruby.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/scheme/scheme.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/smalltalk/smalltalk.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/sparql/sparql.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/stex/stex.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/velocity/velocity.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/xml/xml.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/xmlpure/xmlpure.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/codemirror/mode/yaml/yaml.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/goto/deck.goto.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/hash/deck.hash.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/menu/deck.menu.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/navigation/deck.navigation.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/scale/deck.scale.js" type="text/javascript"></script>
+    <script src="deck.js/extensions/status/deck.status.js" type="text/javascript"></script>
+    <!-- your custom JS here, including call to initialize deck.js-codemirror -->
+    <script src="js/rerr.js" type="text/javascript"></script>
+    <!-- Initialize the deck. -->
+    <script type='text/javascript'>
+      $(function() { $.deck('.slide'); });
+    </script>
+  </body>
+</html>
