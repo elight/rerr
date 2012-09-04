@@ -81,7 +81,7 @@
 !SLIDE
 # Goal
 ## Calculate scalar User interest
-## in Tags
+## for Tags
 ## on a per event basis
 !NOTE
 # Lacking a machine learning background...
@@ -215,18 +215,32 @@
 !SLIDE
 # Emergent behavior
 ## Everything is "taggable" in app
-## Engine scored every Tag relationship...
-## ... including how interested I am in my friends!
+## Most AR object lifecycle queued as events
+## Engine scored **every** Tag relationship...
+## ... including how interested I am in other people!
 
 
 !SLIDE
-# Woulda coulda shoulda
-## Research statistical methods
-### Uncertain RE: real-time constraint
+# Side business as dating site? ;-)
+
+
+!SLIDE
+# Coulda woulda shoulda
+## Statistical methods
 ## Perhaps stored Post scores per User differently
 ### Redis Hash of User ID -> Post ID -> Score
+## Redis pruner for non key-values
+
+
+!SLIDE
+# Even more coulda woulda shoulda
+## Less chattiness with Redis
+### (Redis Lua scripting)
 ## Runtime faster than Ruby
 ## <img src="images/troll.jpg"/>
+!NOTE
+# AWS network calls can still take ~2ms
+# Even O(1) calls to Redis add up!
 
 
 !SLIDE middle
