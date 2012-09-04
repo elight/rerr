@@ -203,7 +203,7 @@
         
         <h2>"Magic" happens!</h2>
         
-        <h2>Outputs Posts scores by User</h2>
+        <h2>Persists Post scores</h2>
       </div>
       <div class='spacer bottom'></div>
     </section>
@@ -230,9 +230,35 @@
     <section class='slide'>
       <div class='spacer top'></div>
       <div class='content'>
+        <h2><em>Trendingness Calculator</em> does not persist its output</h2>
+        
+        <h2>Nor any other <em>Foo Calculator</em></h2>
+        
+        <h2><strong>TDD made this painfully (literally) obvious</strong></h2>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h2>Caller responsible for persistence</h2>
+        
         <h2>Trendingness stored as key-value pairs</h2>
         
         <h2>Incrementing trendingness score trivially fast</h2>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
+        <h1>Persistence aside</h1>
+        
+        <h2>Abstracted Redis dependencies into <em>RedisStore</em></h2>
+        
+        <h2>Any class duck typing <em>Redis Store</em> could provide persistence</h2>
+        
+        <h2><em>Foo Calculators</em> only depend on a single persistence interface</h2>
       </div>
       <div class='spacer bottom'></div>
     </section>
@@ -266,10 +292,10 @@
       </div>
       <div class='spacer bottom'></div>
     </section>
-    <section class='calculator_workflow full-background slide'>
+    <section class='calculator_workflow full-background slide top-left'>
       <div class='spacer top'></div>
       <div class='content'>
-        <h1>Let's simplify this...</h1>
+        <h1>What is this?</h1>
       </div>
       <div class='spacer bottom'></div>
     </section>
@@ -321,9 +347,11 @@
       <div class='content'>
         <h2>Break up <em>Calculator</em></h2>
         
-        <h2>Each <em>FooCalculator</em> becomes Resque worker</h2>
+        <h2>Wrap each <em>Foo Calculator</em> in a Resque worker</h2>
         
-        <h2>Allows <em>FooCalculator</em> to scale independently</h2>
+        <h2>Each <em>Foo Calculator</em> becomes Resque worker</h2>
+        
+        <h2>Allows <em>Foo Calculator</em> to scale independently</h2>
       </div>
       <div class='spacer bottom'></div>
     </section>
@@ -350,11 +378,28 @@
     <section class='slide'>
       <div class='spacer top'></div>
       <div class='content'>
+        <h1>Emergent behavior</h1>
+        
+        <h2>Everything is "taggable" in app</h2>
+        
+        <h2>Engine scored every Tag relationship...</h2>
+        
+        <h2>... including how interested I am in my friends!</h2>
+      </div>
+      <div class='spacer bottom'></div>
+    </section>
+    <section class='slide'>
+      <div class='spacer top'></div>
+      <div class='content'>
         <h1>Woulda coulda shoulda</h1>
         
         <h2>Research statistical methods</h2>
         
         <h3>Uncertain RE: real-time constraint</h3>
+        
+        <h2>Perhaps stored Post scores per User differently</h2>
+        
+        <h3>Redis Hash of User ID -> Post ID -> Score</h3>
         
         <h2>Runtime faster than Ruby</h2>
         

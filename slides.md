@@ -110,11 +110,12 @@
 !SLIDE
 }}} images/calculator_workflow.png
 
+
 !SLIDE
 # *Calculator*
 ## Pop an event off Resque
 ## "Magic" happens!
-## Outputs Posts scores by User
+## Persists Post scores
 
 
 !SLIDE
@@ -129,8 +130,22 @@
 
 
 !SLIDE
+## *Trendingness Calculator* does not persist its output
+## Nor any other *Foo Calculator*
+## **TDD made this painfully (literally) obvious**
+
+
+!SLIDE
+## Caller responsible for persistence
 ## Trendingness stored as key-value pairs
 ## Incrementing trendingness score trivially fast
+
+
+!SLIDE
+# Persistence aside
+## Abstracted Redis dependencies into *RedisStore*
+## Any class duck typing *Redis Store* could provide persistence
+## *Foo Calculators* only depend on a single persistence interface
 
 
 !SLIDE
@@ -149,8 +164,8 @@
 ## **Output**: new Post scores per interested User
 
 
-!SLIDE
-# Let's simplify this...
+!SLIDE top-left
+# What is this?
 }}} images/calculator_workflow.png
 
 
@@ -180,8 +195,9 @@
 
 !SLIDE
 ## Break up *Calculator*
-## Each *FooCalculator* becomes Resque worker
-## Allows *FooCalculator* to scale independently
+## Wrap each *Foo Calculator* in a Resque worker
+## Each *Foo Calculator* becomes Resque worker
+## Allows *Foo Calculator* to scale independently
 
 
 !SLIDE
@@ -196,11 +212,21 @@
 
 
 !SLIDE
+# Emergent behavior
+## Everything is "taggable" in app
+## Engine scored every Tag relationship...
+## ... including how interested I am in my friends!
+
+
+!SLIDE
 # Woulda coulda shoulda
 ## Research statistical methods
 ### Uncertain RE: real-time constraint
+## Perhaps stored Post scores per User differently
+### Redis Hash of User ID -> Post ID -> Score
 ## Runtime faster than Ruby
 ## <img src="images/troll.jpg"/>
+
 
 !SLIDE middle
 # Evan Light
