@@ -144,7 +144,7 @@
 !SLIDE
 # Persistence aside
 ## Abstracted Redis dependencies into *RedisStore*
-## Any class duck typing *Redis Store* could provide persistence
+## Any class duck typing *RedisStore* could provide persistence
 ## *Foo Calculators* only depend on a single persistence interface
 
 
