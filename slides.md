@@ -136,13 +136,14 @@
 
 
 !SLIDE
+# Tangent: On persistence
 ## Caller responsible for persistence
 ## Trendingness stored as key-value pairs
 ## Incrementing trendingness score trivially fast
 
 
 !SLIDE
-# Persistence aside
+# On persistence (cont'd)
 ## Abstracted Redis dependencies into *RedisStore*
 ## Any class duck typing *RedisStore* could provide persistence
 ## *Foo Calculators* only depend on a single persistence interface
