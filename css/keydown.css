@@ -104,24 +104,38 @@ body {
       -moz-box-pack: start;
       -ms-box-pack: start;
       box-pack: start; }
-      .keydown.deck-container .slide.full-background.stuff_i_do {
-        background-image: url(../images/stuff_i_do.png); }
-      .keydown.deck-container .slide.full-background.kyck {
-        background-image: url(../images/kyck.png); }
-      .keydown.deck-container .slide.full-background.no_idea {
-        background-image: url(../images/no_idea.jpg); }
-      .keydown.deck-container .slide.full-background.user-tag {
-        background-image: url(../images/user-tag.png); }
+      .keydown.deck-container .slide.full-background.ruby_dcamp {
+        background-image: url(../images/ruby_dcamp.png); }
+      .keydown.deck-container .slide.full-background.rackspace {
+        background-image: url(../images/rackspace.jpg); }
+      .keydown.deck-container .slide.full-background.i_have_no_idea_what_im_doing {
+        background-image: url(../images/i_have_no_idea_what_im_doing.jpg); }
       .keydown.deck-container .slide.full-background.domain {
         background-image: url(../images/domain.png); }
+      .keydown.deck-container .slide.full-background.user-tag {
+        background-image: url(../images/user-tag.png); }
       .keydown.deck-container .slide.full-background.scored-user-posts {
         background-image: url(../images/scored-user-posts.png); }
+      .keydown.deck-container .slide.full-background.user-tag {
+        background-image: url(../images/user-tag.png); }
+      .keydown.deck-container .slide.full-background.dc_united {
+        background-image: url(../images/dc_united.jpg); }
+      .keydown.deck-container .slide.full-background.im_so_sorry {
+        background-image: url(../images/im_so_sorry.png); }
+      .keydown.deck-container .slide.full-background.kobayashi-maru {
+        background-image: url(../images/kobayashi-maru.jpg); }
+      .keydown.deck-container .slide.full-background.load {
+        background-image: url(../images/share\ the\ load.jpg); }
       .keydown.deck-container .slide.full-background.calculator_workflow {
         background-image: url(../images/calculator_workflow.png); }
+      .keydown.deck-container .slide.full-background.recompute_all_the_users {
+        background-image: url(../images/recompute_all_the_users.jpg); }
       .keydown.deck-container .slide.full-background.calculator_workflow {
         background-image: url(../images/calculator_workflow.png); }
       .keydown.deck-container .slide.full-background.series_of_queues {
         background-image: url(../images/series_of_queues.png); }
+      .keydown.deck-container .slide.full-background.calculator_workflow {
+        background-image: url(../images/calculator_workflow.png); }
       .keydown.deck-container .slide.full-background h1 {
         display: inline;
         position: absolute;

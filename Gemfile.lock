@@ -21,7 +21,6 @@ GEM
       thor
       tilt
     listen (0.5.0)
-    rb-fsevent (0.9.1)
     rdiscount (1.6.8)
     sass (3.2.1)
     thor (0.16.0)
@@ -34,4 +33,3 @@ DEPENDENCIES
   guard
   guard-shell
   keydown
-  rb-fsevent (~> 0.9.1)

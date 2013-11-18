@@ -73,3 +73,7 @@
 .deck-container.deck-menu .deck-current, .no-touch .deck-container.deck-menu .slide:hover {
   background: #ddf;
 }
+
+.keydown.deck-container .slide .content .CodeMirror {
+   font-size: 1.5em;
+}
